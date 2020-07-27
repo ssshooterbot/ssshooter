@@ -31,7 +31,7 @@ if not redis:get(Server_Devssshooter.."User_Devssshooter1") then
 io.write('\n\27[1;35m⬇┇Send UserName For Sudo : ارسل معرف المطور الاساسي ...\n\27[0;39;49m')
 local User_Sudo = io.read():gsub('@','')
 if User_Sudo ~= '' then
-local GetInfoUser = https.request("https://teamstorm.tk/GetUser?id="..User_Sudo)
+local GetInfoUser = https.request("https://teamstorm.tk/GetUser/?id="..User_Sudo)
 local User_Info = JSON.decode(GetInfoUser)
 if User_Info.Info.Chek == "Not_Info" then
 io.write('\n\27[1;31m The UserName was not Saved : المعرف غلط ارسل المعرف صحيح\n\27[0;39;49m')
@@ -68,7 +68,7 @@ end
 ]])
 Devssshooter_Info_Sudo:close()
 ------------------------------------------------------------------------------------------------------------
-local Run_File_Storm = io.open("ssshooter", 'w')
+local Run_File_ssshooter = io.open("ssshooter", 'w')
 Run_File_ssshooter:write([[
 #!/usr/bin/env bash
 cd $HOME/ssshooter
@@ -469,22 +469,52 @@ for gmatch in string.gmatch(data.first_name_, "[^%s]+") do
 data.first_name_ = gmatch
 end
 if status == "Close_Status" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text.."")
 return false
 end
 if status == "Close_Status_Ktm" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text.."\n〽┇خاصية ← الكتم\n")
 return false
 end
 if status == "Close_Status_Kick" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text.."\n〽┇خاصية ← الطرد\n")
 return false
 end
 if status == "Close_Status_Kid" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text.."\n〽┇خاصية ← التقييد\n")
 return false
 end
 if status == "Open_Status" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text)
 return false
 end
@@ -493,6 +523,12 @@ send(msg.chat_id_, msg.id_,"📮┇المستخدم ← ["..data.first_name_.."]
 return false
 end
 if status == "reply_Add" then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..user_id)
+datae = JSON.decode(url)
+if datae.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,"📮┇بواسطه ← ["..data.first_name_.."](T.me/"..UserName..")".."\n"..text)
 return false
 end
@@ -603,44 +639,39 @@ end
 local File = json:decode(https.request('https://api.telegram.org/bot'..token..'/getfile?file_id='..File_id) ) 
 download_to_file('https://api.telegram.org/file/bot'..token..'/'..File.result.file_path,''..JsonFile) 
 send(chat,msg.id_,"〽┇جاري بدء رفع الكروبات وتحويل الخزن ...")   
-local Get_Info = io.open('./'..bot_id..'ssshooter:.json', "r"):read('*a')
+local Get_Info = io.open('./'..bot_id..'.json', "r"):read('*a')
 local JsonInfo = JSON.decode(Get_Info)
 var(JsonInfo)  
-for Id_Group,Info_Group in pairs(JsonInfo.Groups) do
-redis:set(bot_id.."ssshooter:Lock:tagservrbot"..Id_Group,true)   
+for idg,v in pairs(JsonInfo.GP_BOT) do
+redis:set(bot_id.."ssshooter:Lock:tagservrbot"..idg,true)   
 list ={"Lock:Bot:kick","Lock:User:Name","Lock:hashtak","Lock:Cmd","Lock:Link","Lock:forward","Lock:Keyboard","Lock:geam","Lock:Photo","Lock:Animation","Lock:Video","Lock:Audio","Lock:vico","Lock:Sticker","Lock:Document","Lock:Unsupported","Lock:Markdaun","Lock:Contact","Lock:Spam"}
 for i,v in pairs(list) do
-redis:set(bot_id..v..Id_Group,"del")
+redis:set(bot_id..v..idg,"del")
 end
-redis:sadd(bot_id.."ssshooter:ChekBotAdd",Id_Group)
-if Info_Group.President then
-for k,Id_President in pairs(Info_Group.President) do
-redis:sadd(bot_id.."ssshooter:President:Group"..Id_Group,Id_President)
-end
-end
-if Info_Group.Constructor then
-for k,Id_Constructor in pairs(Info_Group.Constructor) do
-redis:sadd(bot_id.."ssshooter:Constructor:Group"..Id_Group,Id_Constructor)  
+redis:sadd(bot_id.."ssshooter:ChekBotAdd",idg)
+if v.ASAS then
+for k,idASAS in pairs(v.ASAS) do
+redis:sadd(bot_id.."ssshooter:President:Group"..idg,idASAS)
 end
 end
-if Info_Group.Manager then
-for k,Id_Manager in pairs(Info_Group.Manager) do
-redis:sadd(bot_id.."ssshooter:Manager:Group"..Id_Group,Id_Manager)  
+if v.MNSH then
+for k,idmsh in pairs(v.MNSH) do
+redis:sadd(bot_id.."ssshooter:Constructor:Group"..idg,idmsh)  
 end
 end
-if Info_Group.Admin then
-for k,Id_Admin in pairs(Info_Group.Admin) do
-redis:sadd(bot_id.."ssshooter:Admin:Group"..Id_Group,Id_Admin)  
+if v.MDER then
+for k,idmder in pairs(v.MDER) do
+redis:sadd(bot_id.."ssshooter:Manager:Group"..idg,idmder)  
 end
 end
-if Info_Group.Vips then
-for k,Id_Vips in pairs(Info_Group.Vips) do
-redis:sadd(bot_id.."ssshooter:Vip:Group"..Id_Group,Id_Vips)  
+if v.MOD then
+for k,idmod in pairs(v.MOD) do
+redis:sadd(bot_id.."ssshooter:Admin:Group"..idg,idmod)  
 end
 end
-if Info_Group.LinkGroup then
-if Info_Group.LinkGroup ~= "" then
-redis:set(bot_id.."ssshooter:link:set:Group"..Id_Group,Info_Group.LinkGroup)   
+if v.linkgroup then
+if v.linkgroup ~= "" then
+redis:set(bot_id.."ssshooter:link:set:Group"..idg,v.linkgroup)   
 end
 end
 end
@@ -1470,7 +1501,7 @@ end
 if text and not Vips(msg) then  
 local Text_Filter = redis:get(bot_id.."ssshooter:Filter:Reply2"..text..msg.chat_id_)   
 if Text_Filter then    
-Send_Options(msg,msg.sender_user_id_,"reply","📬┇"..Text_Filter)  
+Send_Options(msg,msg.sender_user_id_,"reply","??┇"..Text_Filter)  
 DeleteMessage(msg.chat_id_, {[0] = msg.id_})     
 return false
 end
@@ -2436,6 +2467,12 @@ Sudos = "⚠┇لا يوجد مطورين"
 end
 send(msg.chat_id_, msg.id_, Sudos)
 elseif text and text:match("^حظر عام @(.*)$") then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if result and result.type_ and result.type_.ID == ("ChannelChatInfo") then
@@ -2458,6 +2495,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^حظر عام @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^الغاء العام @(.*)$") then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 Send_Options(msg,result.id_,"reply","☑┇تم الغاء حظره عام من المجموعات")  
@@ -2468,6 +2511,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^الغاء العام @(.*)$") }, FunctionStatus, nil)
 elseif text and text:match("^اضف مطور @(.*)$") then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -2482,6 +2531,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^اضف مطور @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^حذف مطور @(.*)$") then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Developer:Bot", result.id_)
@@ -2568,114 +2623,72 @@ end,nil)
 end
 return false
 elseif text == 'جلب نسخة خزن الكروبات 📦' then
-local Groups = redis:smembers(bot_id..'ssshooter:ChekBotAdd')  
-local Get_Json = '{"IdBot": '..bot_id..'ssshooter:,"Groups":{'  
-for k,v in pairs(Groups) do   
-local President = redis:smembers(bot_id.."ssshooter:President:Group"..v)
-local Constructor = redis:smembers(bot_id.."ssshooter:Constructor:Group"..v)
-local Manager = redis:smembers(bot_id.."ssshooter:Manager:Group"..v)
-local Admin = redis:smembers(bot_id.."ssshooter:Admin:Group"..v)
-local Vips = redis:smembers(bot_id.."ssshooter:Vip:Group"..v)
-local LinkGroup = redis:get(bot_id.."ssshooter:link:set:Group"..v) 
-local WelcomeGroup = 'no'
-local Status_Dev = 'no'
-local Status_Prt = 'no'
-local Status_Cto = 'no'
-local Status_Own = 'no'
-local Status_Md = 'no'
-local Status_Vip = 'no'
-local Status_Mem = 'no'
+local list = redis:smembers(bot_id..'ssshooter:ChekBotAdd')  
+local t = '{"BOT_ID": '..bot_id..',"GP_BOT":{'  
+for k,v in pairs(list) do   
+NAME = 'name Chat'
+ASAS = redis:smembers(bot_id.."ssshooter:President:Group"..v)
+MNSH = redis:smembers(bot_id.."ssshooter:Constructor:Group"..v)
+MDER = redis:smembers(bot_id.."ssshooter:Manager:Group"..v)
+MOD = redis:smembers(bot_id.."ssshooter:Admin:Group"..v)
+link = redis:get(bot_id.."ssshooter:link:set:Group"..v) or ''
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'":{'
+t = t..'"'..v..'":{"name":"'..NAME..'",'
 else
-Get_Json = Get_Json..',"'..v..'":{'
+t = t..',"'..v..'":{"name":"'..NAME..'",'
 end
-if #President ~= 0 then 
-Get_Json = Get_Json..'"President":['
-for k,v in pairs(President) do
+if #ASAS ~= 0 then 
+t = t..'"ASAS":['
+for k,v in pairs(ASAS) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Constructor ~= 0 then
-Get_Json = Get_Json..'"Constructor":['
-for k,v in pairs(Constructor) do
+if #MOD ~= 0 then
+t = t..'"MOD":['
+for k,v in pairs(MOD) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Manager ~= 0 then
-Get_Json = Get_Json..'"Manager":['
-for k,v in pairs(Manager) do
+if #MDER ~= 0 then
+t = t..'"MDER":['
+for k,v in pairs(MDER) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Admin ~= 0 then
-Get_Json = Get_Json..'"Admin":['
-for k,v in pairs(Admin) do
+if #MNSH ~= 0 then
+t = t..'"MNSH":['
+for k,v in pairs(MNSH) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Vips ~= 0 then
-t = t..'"Vips":['
-for k,v in pairs(Vips) do
-if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
-else
-Get_Json = Get_Json..',"'..v..'"'
+t = t..'"linkgroup":"'..link..'"}' or ''
 end
-end   
-Get_Json = Get_Json..'],'
-end
-if Status_Dev then
-Get_Json = Get_Json..'"Status_Dev":"'..Status_Dev..'",'
-end
-if Status_Prt then
-Get_Json = Get_Json..'"Status_Prt":"'..Status_Prt..'",'
-end
-if Status_Cto then
-Get_Json = Get_Json..'"Status_Cto":"'..Status_Cto..'",'
-end
-if Status_Own then
-Get_Json = Get_Json..'"Status_Own":"'..Status_Own..'",'
-end
-if Status_Md then
-Get_Json = Get_Json..'"Status_Md":"'..Status_Md..'",'
-end
-if Status_Vip then
-Get_Json = Get_Json..'"Status_Vip":"'..Status_Vip..'",'
-end
-if Status_Mem then
-Get_Json = Get_Json..'"Status_Mem":"'..Status_Mem..'",'
-end
-if LinkGroup then
-Get_Json = Get_Json..'"LinkGroup":"'..LinkGroup..'",'
-end
-Get_Json = Get_Json..'"WelcomeGroup":"'..WelcomeGroup..'"}'
-end
-Get_Json = Get_Json..'}}'
+t = t..'}}'
 local File = io.open('./lib/'..bot_id..'.json', "w")
-File:write(Get_Json)
+File:write(t)
 File:close()
-sendDocument(msg.chat_id_, msg.id_,'./lib/'..bot_id..'.json', '\n☑┇تم جلب نسخه خاصه بالكروبات\n〽┇يحتوي الملف على {'..#Groups..'} مجموعه')
+sendDocument(msg.chat_id_, msg.id_,'./lib/'..bot_id..'.json', '\n☑┇تم جلب نسخه خاصه بالكروبات\n〽┇يحتوي الملف على {'..#list..'} مجموعه')
+
 elseif text == 'تفعيل تواصل البوت 🔔' then  
 redis:del(bot_id..'ssshooter:Lock:Twasl') 
 send(msg.chat_id_, msg.id_,'🔘┇ تم تفعيل التواصل ') 
@@ -2706,127 +2719,170 @@ SetFile_Groups(msg,msg.chat_id_,Data.content_.document_.document_.persistent_id_
 end;end,nil)
 end
 
+if text == "اضف رد للكلمه" and Owner(msg) then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
+redis:set(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_,true)
+return send(msg.chat_id_, msg.id_, "📫┇ارسل الكلمه التري تريد اضافتها" )
+end
+if text == "حذف رد للكلمه" and Owner(msg) then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
+redis:set(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_,"true2")
+return send(msg.chat_id_, msg.id_, "📫┇ارسل الكلمه التري تريد حذفها" )
+end
+if text then  
+if redis:get(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_) == "true1" then
+redis:del(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_)
+local test = redis:get(bot_id.."bots:Text:Manager"..msg.sender_user_id_..":"..msg.chat_id_.."")  
+if text then   
+text = text:gsub('"',"") 
+text = text:gsub('"',"") 
+text = text:gsub("`","") 
+text = text:gsub("*","") 
+redis:set(bot_id.."bots:Add:Rd:Manager:Text"..test..msg.chat_id_, text)  
+end  
+send(msg.chat_id_, msg.id_,"📌┇تم حفظ الرد بنجاح")
+return false  
+end
+end
+if text and text:match("^(.*)$") then
+if redis:get(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_) == "true" then
+send(msg.chat_id_, msg.id_, '📥┇الان ارسل الرد الذي تريد اضافته \n')
+redis:set(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_,"true1")
+redis:set(bot_id.."bots:Text:Manager"..msg.sender_user_id_..":"..msg.chat_id_, text) 
+redis:sadd(bot_id.."bots:Text:sadd"..msg.chat_id_,text) 
+redis:del(bot_id.."bots:Add:Rd:Manager:Text"..text..msg.chat_id_)   
+return false end
+end
+if text and text:match("^(.*)$") then
+if redis:get(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_.."") == "true2" then
+send(msg.chat_id_, msg.id_,"📌┇تم ازالة الرد من قائمه الردود")
+redis:del(bot_id.."bots:Add:Rd:Manager:Text"..text..msg.chat_id_)   
+redis:srem(bot_id.."bots:Text:sadd"..msg.chat_id_,text) 
+redis:del(bot_id.."bots:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_)
+return false
+end
+end
+if text then
+local list = redis:smembers(bot_id.."bots:Text:sadd"..msg.chat_id_)
+for k,v in pairs(list) do
+if text:match(v) ~= nil then
+local gettext = redis:get(bot_id.."bots:Add:Rd:Manager:Text"..text:match(v)..msg.chat_id_) 
+if gettext then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
+send(msg.chat_id_, msg.id_, gettext)
+return false
+end
+end
+end
+end
 if text == 'جلب نسخه احتياطيه' and dev_ssshooter(msg) or text == 'جلب نسخه الكروبات' and dev_ssshooter(msg) then
-
-local Groups = redis:smembers(bot_id..'ssshooter:ChekBotAdd')  
-local Get_Json = '{"IdBot": '..bot_id..'ssshooter:,"Groups":{'  
-for k,v in pairs(Groups) do   
-local President = redis:smembers(bot_id.."ssshooter:President:Group"..v)
-local Constructor = redis:smembers(bot_id.."ssshooter:Constructor:Group"..v)
-local Manager = redis:smembers(bot_id.."ssshooter:Manager:Group"..v)
-local Admin = redis:smembers(bot_id.."ssshooter:Admin:Group"..v)
-local Vips = redis:smembers(bot_id.."ssshooter:Vip:Group"..v)
-local LinkGroup = redis:get(bot_id.."ssshooter:link:set:Group"..v) 
-local WelcomeGroup = 'no'
-local Status_Dev = 'no'
-local Status_Prt = 'no'
-local Status_Cto = 'no'
-local Status_Own = 'no'
-local Status_Md = 'no'
-local Status_Vip = 'no'
-local Status_Mem = 'no'
+local list = redis:smembers(bot_id..'ssshooter:ChekBotAdd')  
+local t = '{"BOT_ID": '..bot_id..',"GP_BOT":{'  
+for k,v in pairs(list) do   
+NAME = 'name Chat'
+ASAS = redis:smembers(bot_id.."ssshooter:President:Group"..v)
+MNSH = redis:smembers(bot_id.."ssshooter:Constructor:Group"..v)
+MDER = redis:smembers(bot_id.."ssshooter:Manager:Group"..v)
+MOD = redis:smembers(bot_id.."ssshooter:Admin:Group"..v)
+link = redis:get(bot_id.."ssshooter:link:set:Group"..v) or ''
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'":{'
+t = t..'"'..v..'":{"name":"'..NAME..'",'
 else
-Get_Json = Get_Json..',"'..v..'":{'
+t = t..',"'..v..'":{"name":"'..NAME..'",'
 end
-if #President ~= 0 then 
-Get_Json = Get_Json..'"President":['
-for k,v in pairs(President) do
+if #ASAS ~= 0 then 
+t = t..'"ASAS":['
+for k,v in pairs(ASAS) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Constructor ~= 0 then
-Get_Json = Get_Json..'"Constructor":['
-for k,v in pairs(Constructor) do
+if #MOD ~= 0 then
+t = t..'"MOD":['
+for k,v in pairs(MOD) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Manager ~= 0 then
-Get_Json = Get_Json..'"Manager":['
-for k,v in pairs(Manager) do
+if #MDER ~= 0 then
+t = t..'"MDER":['
+for k,v in pairs(MDER) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Admin ~= 0 then
-Get_Json = Get_Json..'"Admin":['
-for k,v in pairs(Admin) do
+if #MNSH ~= 0 then
+t = t..'"MNSH":['
+for k,v in pairs(MNSH) do
 if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
+t =  t..'"'..v..'"'
 else
-Get_Json = Get_Json..',"'..v..'"'
+t =  t..',"'..v..'"'
 end
 end   
-Get_Json = Get_Json..'],'
+t = t..'],'
 end
-if #Vips ~= 0 then
-t = t..'"Vips":['
-for k,v in pairs(Vips) do
-if k == 1 then
-Get_Json = Get_Json..'"'..v..'"'
-else
-Get_Json = Get_Json..',"'..v..'"'
+t = t..'"linkgroup":"'..link..'"}' or ''
 end
-end   
-Get_Json = Get_Json..'],'
-end
-if Status_Dev then
-Get_Json = Get_Json..'"Status_Dev":"'..Status_Dev..'",'
-end
-if Status_Prt then
-Get_Json = Get_Json..'"Status_Prt":"'..Status_Prt..'",'
-end
-if Status_Cto then
-Get_Json = Get_Json..'"Status_Cto":"'..Status_Cto..'",'
-end
-if Status_Own then
-Get_Json = Get_Json..'"Status_Own":"'..Status_Own..'",'
-end
-if Status_Md then
-Get_Json = Get_Json..'"Status_Md":"'..Status_Md..'",'
-end
-if Status_Vip then
-Get_Json = Get_Json..'"Status_Vip":"'..Status_Vip..'",'
-end
-if Status_Mem then
-Get_Json = Get_Json..'"Status_Mem":"'..Status_Mem..'",'
-end
-if LinkGroup then
-Get_Json = Get_Json..'"LinkGroup":"'..LinkGroup..'",'
-end
-Get_Json = Get_Json..'"WelcomeGroup":"'..WelcomeGroup..'"}'
-end
-Get_Json = Get_Json..'}}'
+t = t..'}}'
 local File = io.open('./lib/'..bot_id..'.json', "w")
-File:write(Get_Json)
+File:write(t)
 File:close()
-sendDocument(msg.chat_id_, msg.id_,'./lib/'..bot_id..'.json', '\n☑┇تم جلب نسخه خاصه بالكروبات\n〽┇يحتوي الملف على {'..#Groups..'} مجموعه')
+sendDocument(msg.chat_id_, msg.id_,'./lib/'..bot_id..'.json', '\n☑┇تم جلب نسخه خاصه بالكروبات\n〽┇يحتوي الملف على {'..#list..'} مجموعه')
+
 end
 if text == ("مسح قائمه العام") and dev_ssshooter(msg) or text == ("مسح المحظورين عام") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Removal:User:Groups")
 send(msg.chat_id_, msg.id_, "🗑┇تم مسح المحظورين عام من البوت")
 elseif text == ("مسح المطورين") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Developer:Bot")
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المطورين من البوت  ")
 elseif text == ("مسح المنشئين الاساسين") and DeveloperBot(msg) or text == "مسح الاساسين" and DeveloperBot(msg)  then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:President:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المنشئين الاساسيين في المجموعه")
 elseif text == ("مسح المنشئين الاساسين") or text == "مسح الاساسين" then
@@ -2838,31 +2894,66 @@ send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المنشئين الاساسي
 end
 end,nil)
 elseif text == ("مسح المنشئين") and PresidentGroup(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المنشئين في المجموعه")
 elseif text == ("مسح المدراء") and Constructor(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Manager:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المدراء في المجموعه")
 elseif text == ("مسح الادمنيه") and Owner(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Admin:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح الادمنيه في المجموعه")
 elseif text == ("مسح المميزين") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Vip:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المميزين في المجموعه")
 elseif text == ("مسح المكتومين") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇ تم مسح المكتومين في المجموعه")
 elseif text == ("مسح المحظورين") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:del(bot_id.."ssshooter:Removal:User:Group"..msg.chat_id_)
 send(msg.chat_id_, msg.id_, "🗑┇تم مسح المحظورين في المجموعه")
 elseif text == "حذف الاوامر المضافه" and Constructor(msg) or text == "مسح الاوامر المضافه" and Constructor(msg) then 
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Command:List:Group"..msg.chat_id_)
 for k,v in pairs(list) do
 redis:del(bot_id.."ssshooter:Get:Reides:Commands:Group"..msg.chat_id_..":"..v)
@@ -2870,12 +2961,22 @@ redis:del(bot_id.."ssshooter:Command:List:Group"..msg.chat_id_)
 end
 send(msg.chat_id_, msg.id_,"☑┇تم مسح جميع الاوامر التي تم اضافتها")  
 elseif text == "مسح الصلاحيات" and Constructor(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Validitys:Group"..msg.chat_id_)
 for k,v in pairs(list) do;redis:del(bot_id.."ssshooter:Add:Validity:Group:Rt"..v..msg.chat_id_);redis:del(bot_id.."ssshooter:Validitys:Group"..msg.chat_id_);end
 send(msg.chat_id_, msg.id_,"☑┇تم مسح صلاحيات المجموعه")
 elseif text == ("قائمه العام") and dev_ssshooter(msg) or text == ("المحظورين عام") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Removal:User:Groups")
 Gban = "\n📄┇قائمة المحظورين عام في البوت\n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -2891,7 +2992,12 @@ Gban = "⚠┇لا يوجد محظورين عام"
 end
 send(msg.chat_id_, msg.id_, Gban)
 elseif text == ("المطورين") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Developer:Bot")
 Sudos = "\n📄┇قائمة مطورين في البوت \n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -2907,7 +3013,12 @@ Sudos = "⚠┇لا يوجد مطورين"
 end
 send(msg.chat_id_, msg.id_, Sudos)
 elseif text == "المنشئين الاساسين" and DeveloperBot(msg) or text == "الاساسين" and DeveloperBot(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:President:Group"..msg.chat_id_)
 Asase = "\n📄┇قائمة المنشئين الاساسين في المجموعه\n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -2943,7 +3054,12 @@ send(msg.chat_id_, msg.id_, Asase)
 end
 end,nil)
 elseif text == ("المنشئين") and PresidentGroup(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_)
 Monsh = "\n📄┇قائمة منشئين المجموعه \n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -2959,7 +3075,12 @@ Monsh = "⚠┇لا يوجد منشئين"
 end
 send(msg.chat_id_, msg.id_, Monsh)
 elseif text == ("المدراء") and Constructor(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Manager:Group"..msg.chat_id_)
 Moder = "\n📄┇قائمة المدراء في المجموعه \n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -2975,7 +3096,12 @@ Moder = "⚠┇لا يوجد مدراء"
 end
 send(msg.chat_id_, msg.id_, Moder)
 elseif text == ("الادمنيه") and Owner(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 local list = redis:smembers(bot_id.."ssshooter:Admin:Group"..msg.chat_id_)
 Admin = "\n📄┇قائمة الادمنيه في المجموعه\n━━━━━━━━━━━━━\n"
 for k,v in pairs(list) do
@@ -3082,7 +3208,12 @@ end
 send(msg.chat_id_,msg.id_,t)
 end,nil)
 elseif text == ("حظر عام") and tonumber(msg.reply_to_message_id_) ~= 0 and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
 send(msg.chat_id_, msg.id_, "⚠┇لا تسطيع حظر البوت عام")
@@ -3098,42 +3229,72 @@ KickGroup(result.chat_id_, result.sender_user_id_)
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("الغاء العام") and tonumber(msg.reply_to_message_id_) ~= 0 and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Removal:User:Groups", result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم الغاء حظره عام من المجموعات")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("اضف مطور") and tonumber(msg.reply_to_message_id_) ~= 0 and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:sadd(bot_id.."ssshooter:Developer:Bot", result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته مطور في البوت")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("حذف مطور") and tonumber(msg.reply_to_message_id_) ~= 0 and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Developer:Bot", result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من المطورين")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("رفع منشئ اساسي") and tonumber(msg.reply_to_message_id_) ~= 0 and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:sadd(bot_id.."ssshooter:President:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته منشئ اساسي")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("تنزيل منشئ اساسي") and tonumber(msg.reply_to_message_id_) ~= 0 and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:President:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من المنشئين")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("رفع منشئ اساسي") and tonumber(msg.reply_to_message_id_) ~= 0 then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = msg.sender_user_id_},function(arg,da) 
 if da.status_.ID == "ChatMemberStatusCreator" then
 function FunctionStatus(arg, result)
@@ -3155,35 +3316,60 @@ tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumbe
 end
 end,nil)
 elseif text == "رفع منشئ" and tonumber(msg.reply_to_message_id_) ~= 0 and PresidentGroup(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:sadd(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته منشئ في المجموعه")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل منشئ$") and tonumber(msg.reply_to_message_id_) ~= 0 and PresidentGroup(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من المنشئين")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("رفع مدير") and tonumber(msg.reply_to_message_id_) ~= 0 and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:sadd(bot_id.."ssshooter:Manager:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته مدير المجموعه")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("تنزيل مدير") and tonumber(msg.reply_to_message_id_) ~= 0 and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Manager:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من المدراء")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("رفع ادمن") and tonumber(msg.reply_to_message_id_) ~= 0 and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3194,14 +3380,24 @@ Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته ادم�
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("تنزيل ادمن") and tonumber(msg.reply_to_message_id_) ~= 0 and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Admin:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من ادمنيه المجموعه")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("رفع مميز") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3212,14 +3408,24 @@ Send_Options(msg,result.sender_user_id_,"reply","☑┇تم ترقيته ممي�
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("تنزيل مميز") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Vip:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تنزيله من المميزين")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("حظر") and msg.reply_to_message_id_ ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Lock:Ban:Group"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'☑┇لقد تم تعطيل الحظر و الطرد من قبل المنشئين')
 return false
@@ -3245,7 +3451,12 @@ end
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("الغاء حظر") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if tonumber(result.sender_user_id_) == tonumber(bot_id) then
 send(msg.chat_id_, msg.id_, "☑️┇لا يمكنك عمل هاذا الامر على البوت") 
@@ -3257,7 +3468,12 @@ Send_Options(msg,result.sender_user_id_,"reply","☑┇تم الغاء حظره 
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("كتم") and msg.reply_to_message_id_ ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
 return false  
@@ -3272,14 +3488,24 @@ Send_Options(msg,result.sender_user_id_,"reply","☑┇تم كتمه من هنا
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("الغاء كتم") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 redis:srem(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_, result.sender_user_id_)
 Send_Options(msg,result.sender_user_id_,"reply","☑┇تم الغاء كتمه من هنا")  
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text == ("الغاء تقيد") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
@@ -3291,7 +3517,12 @@ end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 
 elseif text == ("تقيد") and tonumber(msg.reply_to_message_id_) ~= 0 and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if Rank_Checking(result.sender_user_id_, msg.chat_id_) then
 send(msg.chat_id_, msg.id_, "\n⚠┇لا تستطيع -( حظر , طرد , كتم , تقيد ) : "..Get_Rank(result.id_,msg.chat_id_).."")
@@ -3306,7 +3537,12 @@ Send_Options(msg,result.sender_user_id_,"reply","☑┇تم تقييده")
 end
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, FunctionStatus, nil)
 elseif text and text:match("^حظر عام @(.*)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if result and result.type_ and result.type_.ID == ("ChannelChatInfo") then
@@ -3329,7 +3565,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^حظر عام @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^الغاء العام @(.*)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 Send_Options(msg,result.id_,"reply","☑┇تم الغاء حظره عام من المجموعات")  
@@ -3340,7 +3581,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^الغاء العام @(.*)$") }, FunctionStatus, nil)
 elseif text and text:match("^اضف مطور @(.*)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -3355,7 +3601,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^اضف مطور @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^حذف مطور @(.*)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Developer:Bot", result.id_)
@@ -3366,7 +3617,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^حذف مطور @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^رفع منشئ اساسي @(.*)$") and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -3381,7 +3637,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^رفع منشئ اساسي @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل منشئ اساسي @(.*)$") and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:President:Group"..msg.chat_id_, result.id_)
@@ -3394,7 +3655,12 @@ tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^تنزيل م�
 elseif text and text:match("^رفع منشئ اساسي @(.*)$") then 
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = msg.sender_user_id_},function(arg,da) 
 if da.status_.ID == "ChatMemberStatusCreator" then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -3414,7 +3680,12 @@ end,nil)
 elseif text and text:match("^تنزيل منشئ اساسي @(.*)$") then 
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = msg.sender_user_id_},function(arg,da) 
 if da.status_.ID == "ChatMemberStatusCreator" then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:President:Group"..msg.chat_id_, result.id_)
@@ -3428,7 +3699,12 @@ return false
 end
 end,nil)
 elseif text and text:match("^رفع منشئ @(.*)$") and PresidentGroup(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -3443,7 +3719,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^رفع منشئ @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل منشئ @(.*)$") and PresidentGroup(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_, result.id_)
@@ -3454,7 +3735,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^تنزيل منشئ @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^رفع مدير @(.*)$") and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
@@ -3469,7 +3755,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^رفع مدير @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل مدير @(.*)$") and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Manager:Group"..msg.chat_id_, result.id_)
@@ -3480,7 +3771,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^تنزيل مدير @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^رفع ادمن @(.*)$") and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3499,7 +3795,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^رفع ادمن @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل ادمن @(.*)$") and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Admin:Group"..msg.chat_id_, result.id_)
@@ -3510,7 +3811,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^تنزيل ادمن @(.*)$") }, FunctionStatus, nil)
 elseif text and text:match("^رفع مميز @(.*)$") and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3529,7 +3835,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^رفع مميز @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تنزيل مميز @(.*)$") and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Vip:Group"..msg.chat_id_, result.id_)
@@ -3626,7 +3937,12 @@ end
 tdcli_function ({ID = "SearchPublicChat",username_ = text1[3]},status_username,nil) 
 end  
 elseif text and text:match("^حظر @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Lock:Ban:Group"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'☑┇لقد تم تعطيل الحظر و الطرد من قبل المنشئين')
 return false
@@ -3660,7 +3976,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^حظر @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^الغاء حظر @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 if tonumber(result.id_) == tonumber(bot_id) then
@@ -3676,7 +3997,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^الغاء حظر @(.*)$") }, FunctionStatus, nil)
 elseif text and text:match("^كتم @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
 return false  
@@ -3699,7 +4025,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^كتم @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^الغاء كتم @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if (result.id_) then
 redis:srem(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_, result.id_)
@@ -3710,7 +4041,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^الغاء كتم @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^تقيد @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
@@ -3769,7 +4105,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = TextEnd[4]}, FunctionStatus, nil)
 elseif text and text:match("^الغاء تقيد @(.*)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 function FunctionStatus(arg, result)
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
@@ -3784,7 +4125,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^الغاء تقيد @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^طرد @(.*)$") and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_, msg.id_,"⚠┇عذرآ البوت ليس ادمن") 
 return false  
@@ -3817,7 +4163,12 @@ end
 end
 tdcli_function ({ID = "SearchPublicChat",username_ = text:match("^طرد @(.*)$")}, FunctionStatus, nil)
 elseif text and text:match("^حظر عام (%d+)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if dev_ssshooter_User(text:match("^حظر عام (%d+)$")) == true then
 send(msg.chat_id_, msg.id_, "⚠┇لا تستطيع حظر المطور الاساسي عام")
 return false 
@@ -3829,45 +4180,95 @@ end
 redis:sadd(bot_id.."ssshooter:Removal:User:Groups", text:match("^حظر عام (%d+)$"))
 Send_Options(msg,text:match("^حظر عام (%d+)$"),"reply","☑┇تم حظره عام من المجموعات")  
 elseif text and text:match("^الغاء العام (%d+)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Removal:User:Groups", text:match("^الغاء العام (%d+)$"))
 Send_Options(msg,text:match("^الغاء العام (%d+)$"),"reply","☑┇تم الغاء حظره عام من المجموعات")  
 return false
 end
 if text and text:match("^اضف مطور (%d+)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:sadd(bot_id.."ssshooter:Developer:Bot", text:match("^اضف مطور (%d+)$"))
 Send_Options(msg,text:match("^اضف مطور (%d+)$"),"reply","☑┇تم ترقيته مطور في البوت")  
 elseif text and text:match("^حذف مطور (%d+)$") and dev_ssshooter(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Developer:Bot", text:match("^حذف مطور (%d+)$"))
 Send_Options(msg,text:match("^حذف مطور (%d+)$"),"reply","☑┇تم تنزيله من المطورين")  
 elseif text and text:match("^رفع منشئ اساسي (%d+)$") and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:sadd(bot_id.."ssshooter:President:Group"..msg.chat_id_, text:match("^رفع منشئ اساسي (%d+)$") )
 Send_Options(msg,text:match("^رفع منشئ اساسي (%d+)$") ,"reply","☑┇تم ترقيته منشئ اساسي")  
 elseif text and text:match("^تنزيل منشئ اساسي (%d+)$") and DeveloperBot(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:President:Group"..msg.chat_id_, text:match("^تنزيل منشئ اساسي (%d+)$") )
 Send_Options(msg,text:match("^تنزيل منشئ اساسي (%d+)$") ,"reply","☑┇تم تنزيله من المنشئين")  
 elseif text and text:match("^رفع منشئ (%d+)$") and PresidentGroup(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:sadd(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_, text:match("^رفع منشئ (%d+)$"))
 Send_Options(msg,text:match("^رفع منشئ (%d+)$"),"reply","☑┇تم ترقيته منشئ في المجموعه")  
 elseif text and text:match("^تنزيل منشئ (%d+)$") and PresidentGroup(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Constructor:Group"..msg.chat_id_, text:match("^تنزيل منشئ (%d+)$"))
 Send_Options(msg,text:match("^تنزيل منشئ (%d+)$"),"reply","☑┇تم تنزيله من المنشئين")  
 elseif text and text:match("^رفع مدير (%d+)$") and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:sadd(bot_id.."ssshooter:Manager:Group"..msg.chat_id_, text:match("^رفع مدير (%d+)$") )
 Send_Options(msg,text:match("^رفع مدير (%d+)$") ,"reply","☑┇تم ترقيته مدير المجموعه")  
 elseif text and text:match("^تنزيل مدير (%d+)$") and Constructor(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Manager:Group"..msg.chat_id_, text:match("^تنزيل مدير (%d+)$") )
 Send_Options(msg,text:match("^تنزيل مدير (%d+)$") ,"reply","☑┇تم تنزيله من المدراء")  
 elseif text and text:match("^رفع ادمن (%d+)$") and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3875,11 +4276,21 @@ end
 redis:sadd(bot_id.."ssshooter:Admin:Group"..msg.chat_id_, text:match("^رفع ادمن (%d+)$"))
 Send_Options(msg,text:match("^رفع ادمن (%d+)$"),"reply","☑┇تم ترقيته ادمن للمجموعه")  
 elseif text and text:match("^تنزيل ادمن (%d+)$") and Owner(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Admin:Group"..msg.chat_id_, text:match("^تنزيل ادمن (%d+)$"))
 Send_Options(msg,text:match("^تنزيل ادمن (%d+)$"),"reply","☑┇تم تنزيله من ادمنيه المجموعه")  
 elseif text and text:match("^رفع مميز (%d+)$") and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Cheking:Seted"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'✖┇لا تستطيع رفع احد وذالك لان تم تعطيل الرفع من قبل المنشئين')
 return false
@@ -3887,11 +4298,21 @@ end
 redis:sadd(bot_id.."ssshooter:Vip:Group"..msg.chat_id_, text:match("^رفع مميز (%d+)$"))
 Send_Options(msg,text:match("^رفع مميز (%d+)$"),"reply","☑┇تم ترقيته مميز للمجموعه")  
 elseif text and text:match("^تنزيل مميز (%d+)$") and Admin(msg) then
- 
+ local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Vip:Group"..msg.chat_id_, text:match("^تنزيل مميز (%d+)$") )
 Send_Options(msg,text:match("^تنزيل مميز (%d+)$") ,"reply","☑┇تم تنزيله من المميزين")  
 elseif text and text:match("^حظر (%d+)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if not Constructor(msg) and redis:get(bot_id.."ssshooter:Lock:Ban:Group"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'☑┇لقد تم تعطيل الحظر و الطرد من قبل المنشئين')
 return false
@@ -3914,7 +4335,12 @@ Send_Options(msg,text:match("^حظر (%d+)$") ,"reply","☑┇تم حظره من
 end,nil)   
 end
 elseif text and text:match("^الغاء حظر (%d+)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if tonumber(text:match("^الغاء حظر (%d+)$") ) == tonumber(bot_id) then
 send(msg.chat_id_, msg.id_, "☑️┇لا يمكنك عمل هاذا الامر على البوت") 
 return false 
@@ -3923,7 +4349,12 @@ redis:srem(bot_id.."ssshooter:Removal:User:Group"..msg.chat_id_, text:match("^ا
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = text:match("^الغاء حظر (%d+)$") , status_ = { ID = "ChatMemberStatusLeft" },},function(arg,ban) end,nil)   
 Send_Options(msg,text:match("^الغاء حظر (%d+)$") ,"reply","☑┇تم الغاء حظره من هنا")  
 elseif text and text:match("^كتم (%d+)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 if Rank_Checking(text:match("^كتم (%d+)$"), msg.chat_id_) == true then
 send(msg.chat_id_, msg.id_, "\n⚠┇لا تستطيع -( حظر , طرد , كتم , تقيد ) : "..Get_Rank(userid,msg.chat_id_).."")
 else
@@ -3939,7 +4370,12 @@ redis:sadd(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_, text:match("^ك
 Send_Options(msg,text:match("^كتم (%d+)$"),"reply","☑┇تم كتمه من هنا")  
 end
 elseif text and text:match("^الغاء كتم (%d+)$") and Admin(msg) then
-
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 redis:srem(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_,text:match("^الغاء كتم (%d+)$") )
 Send_Options(msg,text:match("^الغاء كتم (%d+)$") ,"reply","☑┇تم الغاء كتمه من هنا")  
 elseif text and text:match("^تقيد (%d+)$") and Admin(msg) then
@@ -5825,6 +6261,12 @@ send(msg.chat_id_, msg.id_,"🔰┇اسرع واحد يكمل المثل ~ {"..n
 return false
 end
 elseif text == 'السورس' or text == 'سورس' or text == 'ياسورس'  then
+local url,res = https.request('https://teamstorm.tk/chh/?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+if data.Ch_Member.SSshooterOfficial ~= true then
+send(msg.chat_id_,msg.id_,'\n📌┇عليك الاشتراك في قناة البوت \n💢┇قناة البوت ← { @SSshooterOfficial }')   
+return false 
+end
 send(msg.chat_id_, msg.id_,[[
 💢┇Source ssshooter
 ⚜┇[Developer Source !](t.me/NN77N)
@@ -6197,7 +6639,7 @@ if dev_ssshooter(msg) then
 redis:srem(bot_id.."ssshooter:Removal:User:Groups",result.sender_user_id_)
 redis:srem(bot_id.."ssshooter:Removal:User:Group"..msg.chat_id_,result.sender_user_id_)
 redis:srem(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_,result.sender_user_id_)
-Send_Options(msg,result.sender_user_id_,"reply","\n📫┇ تم الغاء القيود عنه")  
+Send_Options(msg,result.sender_user_id_,"reply","\n??┇ تم الغاء القيود عنه")  
 else
 redis:srem(bot_id.."ssshooter:Removal:User:Group"..msg.chat_id_,result.sender_user_id_)
 redis:srem(bot_id.."ssshooter:Silence:User:Group"..msg.chat_id_,result.sender_user_id_)
